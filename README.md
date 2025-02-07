@@ -4,8 +4,7 @@
 This is the complete repository for all work performed in the manuscript:  
 *A differentiable structural analysis framework for high-performance design optimization*  
 
-written by: Keith J. Lee, Yijiang Huang, and Caitlin T. Mueller  
-and submitted to Automation in Construction (Elsevier)
+written by: Keith J. Lee, Yijiang Huang, and Caitlin T. Mueller 
 
 # Abstract
 Fast, gradient-based structural optimization has long been limited to a highly restricted subset of problems---namely, density-based compliance minimization---for which gradients can be analytically derived. 
