@@ -110,26 +110,26 @@ begin
         newJ = [j_main, j_spine, j_strut, j_tie]
         newS = [s_main, s_spine, s_strut, s_tie]
 
-        A = DiffAnalysis_AIC2024.replace_values(p.A, p.indexer.iA, newA[p.indexer.iAg])
-        Ixy = DiffAnalysis_AIC2024.replace_values(p.Ix, p.indexer.iA, newI[p.indexer.iAg])
-        J = DiffAnalysis_AIC2024.replace_values(p.J, p.indexer.iA, newJ[p.indexer.iAg])
+        A = DiffAnalysis.replace_values(p.A, p.indexer.iA, newA[p.indexer.iAg])
+        Ixy = DiffAnalysis.replace_values(p.Ix, p.indexer.iA, newI[p.indexer.iAg])
+        J = DiffAnalysis.replace_values(p.J, p.indexer.iA, newJ[p.indexer.iAg])
         S = newS[p.indexer.iAg]
 
-        ke = DiffAnalysis_AIC2024.k_frame.(p.E, p.G, A, p2.L, Ixy, Ixy, J)
+        ke = DiffAnalysis.k_frame.(p.E, p.G, A, p2.L, Ixy, Ixy, J)
 
-        Ke = DiffAnalysis_AIC2024.get_global_ks(p2.R, ke)
+        Ke = DiffAnalysis.get_global_ks(p2.R, ke)
 
-        K = DiffAnalysis_AIC2024.assemble_global_K(Ke, p)
+        K = DiffAnalysis.assemble_global_K(Ke, p)
 
-        u = DiffAnalysis_AIC2024.solve_u(K, p, alg)
+        u = DiffAnalysis.solve_u(K, p, alg)
 
-        U = DiffAnalysis_AIC2024.replace_values(zeros(p.n), p.freeids, u)
+        U = DiffAnalysis.replace_values(zeros(p.n), p.freeids, u)
 
         #vertical displacements
         uvert = abs.(U[3:6:end])
 
         # stresses
-        local_forces = DiffAnalysis_AIC2024.Flocal(U, Ke, p2.R, p)
+        local_forces = DiffAnalysis.Flocal(U, Ke, p2.R, p)
         stresses = abs.(getindex.(local_forces, 1)) ./ A .+ abs.(getindex.(local_forces, 6)) ./ S
 
         return [
@@ -155,7 +155,7 @@ begin
         a_tie = a_tube(dtie, alphatie)
         newA = [a_main, a_spine, a_strut, a_tie]
 
-        A = DiffAnalysis_AIC2024.replace_values(p.A, p.indexer.iA, newA[p.indexer.iAg])
+        A = DiffAnalysis.replace_values(p.A, p.indexer.iA, newA[p.indexer.iAg])
 
         dot(A, p2.L)
     end

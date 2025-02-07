@@ -69,6 +69,7 @@ begin
     @show res.opt_stop_type
 
     x_opt = res.x_opt
+    c_opt = CSTR(x_opt)
     
     c_baseline = [fill(dmax, model.nNodes); fill(fy, model.nElements)]
     @show check_cstr(c_opt, c_baseline)

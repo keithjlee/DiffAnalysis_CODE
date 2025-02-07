@@ -1,5 +1,5 @@
 # load environment and activate dependencies
-using DiffAnalysis_AIC2024
+using DiffAnalysis
 using Nonconvex, NonconvexNLopt
 set_theme!(aic)
 figdir = joinpath(@__DIR__, "figures/")

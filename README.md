@@ -33,7 +33,7 @@ Using git or simply by downloading the entire codebase, make a local copy of thi
 Navigate to your local version of this repository and start a Julia instance.  
 Enter package mode by typing `]` in the REPL. If you see this:
 ```julia-repl
-(DiffAnalysis_AIC2024) pkg>
+(DiffAnalysis) pkg>
 ```
 you're ready for the next step. If you see this:
 ```julia-repl
@@ -48,7 +48,7 @@ to activate the current environment.
 ## Instantiate environment
 Run:
 ```julia-repl
-(DiffAnalysis_AIC2024) pkg> instantiate
+(DiffAnalysis) pkg> instantiate
 ```
 to download and install all the dependencies in the versions used to create this paper. You are now ready to use the contents of this repository and run scripts to replicate our work.
 
@@ -58,7 +58,7 @@ This repository is split into two primary folders: `src` and `paper-scripts`
 ## `src/`
 `src` contains all necessary code to analyze and extract gradients of structural objectives/constraints, and contains all of our technical contributions discussed in the paper.
 
-This folder is organized as a typical Julia package module, see `src/DiffAnalysis_AIC2024.jl` for the parent-level scope and overall organization.
+This folder is organized as a typical Julia package module, see `src/DiffAnalysis.jl` for the parent-level scope and overall organization.
 
 ### `src/Functions/`
 This folder contains all code necessary to perform structural analysis and compute gradients. Our custom differentiation rules (pullbacks) are also defined in this section for performance critical functions.

@@ -1,4 +1,4 @@
-module DiffAnalysis_AIC2024
+module DiffAnalysis
 
 using Reexport
 
@@ -47,4 +47,4 @@ export constrained_optimization_FD, unconstrained_optimization_FD
 
 include("IO/GHAsap.jl")
 export GHsave
-end # module DiffAnalysis_AIC2024
+end # module DiffAnalysis

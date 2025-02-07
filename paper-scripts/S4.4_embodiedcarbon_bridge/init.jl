@@ -1,4 +1,4 @@
-using DiffAnalysis_AIC2024
+using DiffAnalysis
 set_theme!(aic)
 using Nonconvex, NonconvexNLopt
 

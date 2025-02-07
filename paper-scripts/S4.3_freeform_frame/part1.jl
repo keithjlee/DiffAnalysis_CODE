@@ -79,22 +79,22 @@ begin
         Ixy = fill(i, p.nelements)
         J = fill(j, p.nelements)
 
-        ke = DiffAnalysis_AIC2024.k_frame.(p.E, p.G, A, p.L, Ixy, Ixy, J)
+        ke = DiffAnalysis.k_frame.(p.E, p.G, A, p.L, Ixy, Ixy, J)
 
-        Ke = DiffAnalysis_AIC2024.get_global_ks(p.R, ke)
+        Ke = DiffAnalysis.get_global_ks(p.R, ke)
 
-        K = DiffAnalysis_AIC2024.assemble_global_K(Ke, p.params)
+        K = DiffAnalysis.assemble_global_K(Ke, p.params)
 
-        u = DiffAnalysis_AIC2024.solve_u(K, p.params, alg)
+        u = DiffAnalysis.solve_u(K, p.params, alg)
 
-        U = DiffAnalysis_AIC2024.replace_values_buffer(zeros(p.ndofs), p.freeids, u)
+        U = DiffAnalysis.replace_values_buffer(zeros(p.ndofs), p.freeids, u)
 
 
         #vertical displacements
         uvert = abs.(U[3:6:end])
 
         # stresses
-        local_forces = DiffAnalysis_AIC2024.Flocal(U, Ke, p.R, p.params)
+        local_forces = DiffAnalysis.Flocal(U, Ke, p.R, p.params)
         axial_stresses = [abs(f[1]) / a for f in local_forces]
         flexural_stresses = [abs(f[6]) / s for f in local_forces]
 

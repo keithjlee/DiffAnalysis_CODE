@@ -1,4 +1,4 @@
-using DiffAnalysis_AIC2024
+using DiffAnalysis
 # optimization trace for shape optimization
 figdir = joinpath(@__DIR__, "figures/")
 isdir(figdir) || mkdir(figdir)

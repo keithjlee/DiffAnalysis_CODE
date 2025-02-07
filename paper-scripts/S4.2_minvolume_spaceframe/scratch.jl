@@ -1,4 +1,4 @@
-using DiffAnalysis_AIC2024
+using DiffAnalysis
 set_theme!(aic)
 
 data = jldopen(joinpath(@__DIR__, "data/08_07_2024_gb_mma_3areas.jld2"))

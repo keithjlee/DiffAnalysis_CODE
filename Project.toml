@@ -1,4 +1,4 @@
-name = "DiffAnalysis_AIC2024"
+name = "DiffAnalysis"
 uuid = "d81720e7-9d76-4c66-a69e-8f07ca321cc4"
 authors = ["kjl_macbook <keithjl@mit.edu>"]
 version = "0.1.0"
