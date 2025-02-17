@@ -47,15 +47,39 @@ begin
     opts = Metaheuristics.Options(time_limit = 120.0, store_convergence = true, f_tol = 1e-6, f_calls_limit = 200_000, iterations = 1000)
     alg = Metaheuristics.GA(N = 100, options = opts, mutation = PolynomialMutation(;bounds))
 end
-begin
+
+n_trials = 5
+
+times = []
+results = []
+
+for _ = 1:n_trials
+
+    bounds = BoxConstrainedSpace(lb = params.lb, ub = params.ub)
+    opts = Metaheuristics.Options(time_limit = 120.0, store_convergence = true, f_tol = 1e-6, f_calls_limit = 200_000, iterations = 1000)
+    alg = Metaheuristics.GA(N = 100, options = opts, mutation = PolynomialMutation(;bounds))
+
     t0 = time()
     res = Metaheuristics.optimize(OBJ_CSTR, bounds, alg)
     restime = time() - t0
+
+    push!(times, restime)
+    push!(results, res)
 end 
 
+opt_times = getproperty.(results, :overall_time)
+mean(opt_times)
+opt_results = getproperty.(results, :best_sol)
+opt_obj = getproperty.(opt_results, :f)
+mean(opt_obj)
+
+opt_x = getproperty.(opt_results, :x)
+opt_cstr = CSTR.(opt_x)
 
 # post process
 begin
+    i_sorted = sortperm(opt_obj)
+    res = results[i_sorted[3]] #take the median performing result
     @show res.best_sol.f
     @show restime = res.overall_time
     @show n_iter = res.iteration

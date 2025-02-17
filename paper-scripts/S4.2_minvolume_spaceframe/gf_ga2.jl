@@ -36,27 +36,46 @@ function OBJ_CSTR(x)
     return OBJ(x), CSTR(x), [0.]
 end
 
+
 OBJ_CSTR(x_init)
 
 #=
 OPTIMIZATION
 =#
 #Metaheuristics
-begin
+n_trials = 5
+
+times = []
+results = []
+
+for iter = 1:n_trials
+
+    println("ITER $iter")
     bounds = BoxConstrainedSpace(lb = params.lb, ub = params.ub)
     opts = Metaheuristics.Options(time_limit = 300.0, store_convergence = true, f_tol = 1e-6, f_calls_limit = 200_000, iterations = 2000)
     alg = Metaheuristics.GA(N = 100, options = opts, mutation = PolynomialMutation(;bounds))
-end
 
-begin
     t0 = time()
     res = Metaheuristics.optimize(OBJ_CSTR, bounds, alg)
     restime = time() - t0
+
+    println("TIME: $restime")
+
+    push!(times, restime)
+    push!(results, res)
 end 
+
+opt_times = getproperty.(results, :overall_time)
+mean(opt_times)
+opt_results = getproperty.(results, :best_sol)
+opt_obj = getproperty.(opt_results, :f)
+mean(opt_obj)
 
 
 # post process
 begin
+    i_sorted = sortperm(opt_obj)
+    res = results[i_sorted[3]] #take the median performing result
     @show res.best_sol.f
     @show restime = res.overall_time
     @show n_iter = res.iteration
@@ -130,12 +149,12 @@ begin
         linewidth = lw,
     )
 
-    scatter!(
-        _nodes2,
-        color = :white,
-        strokecolor = kjl_blue,
-        strokewidth = 2
-    )
+    # scatter!(
+    #     _nodes2,
+    #     color = :white,
+    #     strokecolor = kjl_blue,
+    #     strokewidth = 2
+    # )
 
     axloss = Axis(
         fig[2,1],
